@@ -2,17 +2,10 @@ from Structures.List.List import List
 
 
 class TreeNode:
-    def __init__(self, key: int, data=None, parent: int = None, children: List = List()):
+    def __init__(self, key, data):
         self.__key = key
         self.__data = data
-        self.__parent = parent
-        self.__children = children
-
-    def get_key(self):
-        return self.__key
-
-    def set_key(self, key: int):
-        self.__key = key
+        self.__children = List()
 
     def get_data(self):
         return self.__data
@@ -20,17 +13,25 @@ class TreeNode:
     def set_data(self, data):
         self.__data = data
 
-    def add_child(self, child):
-        self.__children.append(child)
+    def get_key(self):
+        return self.__key
 
-    def get_child(self, index: int):
-        return self.__children.get(index).get_data()
+    def set_key(self, key):
+        self.__key = key
+
+    def get_child(self, i):
+        if self.__children.get(i) is not None:
+            return self.__children.get(i).get_data()
+        return None
 
     def get_children(self):
         return self.__children
 
+    def add_child(self, child):
+        self.__children.append(child)
+
     def __str__(self):
-        return f'{self.__key}, {self.__data}, {self.__parent}'
+        return f'{self.__key}, {self.__data}'
 
     def __repr__(self):
-        return f'TreeNode(key={self.__key}, data={self.__data}, children={self.__children}, parent={self.__parent})'
+        return f'TreeNode(key={self.__key}, data={self.__data}, children={self.__children})'

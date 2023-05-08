@@ -11,7 +11,8 @@ class List:
     def push(self, data):
         node = Node(data)
         if self.__head is None:
-            self.__head = self.__tail = node
+            self.__head = node
+            self.__tail = node
         else:
             node.set_next(self.__head)
             self.__head.set_prev(node)
@@ -24,7 +25,6 @@ class List:
             self.__head = node
             self.__tail = node
         else:
-            node.set_prev(self.__tail)
             self.__tail.set_next(node)
             self.__tail = node
         self.__length += 1
@@ -89,24 +89,19 @@ class List:
         return result
 
     def peek(self):
-        return self.__head.get_data()
+        return self.__head
 
     def get(self, index):
-        if index < 0 or index >= self.__length:
-            raise IndexOutOfBoundsException()
+        tmp = self.__head
+        if index < 0 or index > self.__length - 1:
+            raise IndexOutOfBoundsException().get_error_message()
         elif index == 0:
-            tmp = self.peek()
-        elif index == self.__length-1:
-            tmp = self.__tail
-        elif index < self.__length / 2:
             tmp = self.__head
-            for i in range(index - 1):
-                tmp = tmp.get_next()
-        else:
+        elif index == self.__length - 1:
             tmp = self.__tail
-            index = self.__length - index
-            for i in range(index - 1):
-                tmp = tmp.get_prev()
+        else:
+            for i in range(index):
+                tmp = tmp.get_next()
         return tmp
 
     def is_empty(self):
@@ -129,10 +124,10 @@ class List:
 
     def __str__(self):
         tmp = self.__head
-        result = '[' if not self.is_empty() else '[]'
+        result = f'[{self.__head}'
         while tmp is not None:
-            result += f'{tmp}, ' if tmp.get_next() is not None else f'{tmp}]'
             tmp = tmp.get_next()
+            result += f', {tmp.to_String()}' if tmp is not None else ']'
         return result
 
     def __repr__(self):
