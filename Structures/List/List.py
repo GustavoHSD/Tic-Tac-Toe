@@ -119,6 +119,14 @@ class List:
             yield tmp.get_data()
             tmp = tmp.get_next()
 
+    def __contains__(self, value):
+        tmp = self.__head
+        while tmp is not None:
+            if tmp.get_data() == value:
+                return True
+            tmp = tmp.get_next()
+        return False
+
     def __sizeof__(self):
         return self.__length
 
@@ -127,7 +135,7 @@ class List:
         result = f'[{self.__head}'
         while tmp is not None:
             tmp = tmp.get_next()
-            result += f', {tmp.to_String()}' if tmp is not None else ']'
+            result += f', {tmp}' if tmp is not None else ']'
         return result
 
     def __repr__(self):

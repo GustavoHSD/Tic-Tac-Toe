@@ -27,11 +27,14 @@ class TreeNode:
     def get_children(self):
         return self.__children
 
+    def set_children(self, children: List):
+        self.__children = children
+
     def add_child(self, child):
         self.__children.append(child)
 
     def __str__(self):
-        return f'{self.__key}, {self.__data}'
+        return f'{self.__key},\n{self.__data}\n'
 
     def __repr__(self):
         return f'TreeNode(key={self.__key}, data={self.__data}, children={self.__children})'

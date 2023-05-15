@@ -1,5 +1,7 @@
 # from Structures.List.List import List
 import numpy as np
+
+from Structures.List.List import List
 from Structures.Stack.Stack import Stack
 from Structures.Tree.TreeNode import TreeNode
 
@@ -8,10 +10,16 @@ class Tree:
     def __init__(self, key: int, data):
         self.__root = TreeNode(key, data)
 
+    def get_root(self):
+        return self.__root
+
+    def insert_node(self, parent: int, node: TreeNode):
+        self.insert_r(self.__root, parent, node)
+
     def insert(self, parent: int, key: int, data):
         self.insert_r(self.__root, parent, TreeNode(key, data))
 
-    def insert_r(self, root, parent, treenode):
+    def insert_r(self, root: TreeNode, parent: int, treenode: TreeNode):
         if self.__root is None:
             self.__root = treenode
         else:
@@ -25,22 +33,21 @@ class Tree:
                         self.insert_r(i, parent, treenode)
 
     def dfs(self, target):
-        return self.__depth_first_search(self.__root, target)
+        return self.depth_first_search_r(self.__root, target, List())
 
-    def __depth_first_search(self, root, target):
-        stack = Stack()
-        stack.push(root)
-        visited = set()
-        while not stack.is_empty():
-            node = stack.pop()
-            visited.add(node)
-
-            if np.array_equal(root.get_data(), target):
-                return node
-
-            for child in node.get_data().get_children():
-                if child not in visited:
-                    stack.push(child)
+    def depth_first_search_r(self, root: TreeNode, target, visited: List):
+        if np.array_equal(root.get_data(), target):
+            print('equal')
+            return root
+        visited.append(root)
+        for i in root.get_children():
+            if np.array_equal(i, target):
+                print('equal')
+                return i
+            elif i not in visited:
+                result = self.depth_first_search_r(i, target, visited)
+                if result is not None:
+                    return result
         return None
 
     def pre_order(self):
