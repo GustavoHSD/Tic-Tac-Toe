@@ -1,3 +1,3 @@
 class IndexOutOfBoundsException(Exception):
-    def __init__(self):
-        raise Exception('Index out of bounds')
+    def __init__(self, index):
+        raise Exception('Index ', index, ' out of bounds')

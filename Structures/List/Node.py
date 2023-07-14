@@ -4,21 +4,27 @@ class Node:
         self.__next = next_node
         self.__prev = prev_node
 
-    def get_data(self):
+    @property
+    def data(self):
         return self.__data
-
-    def set__data(self, data):
+    
+    @data.setter
+    def data(self, data):
         self.__data = data
 
-    def get_next(self):
+    @property
+    def next(self):
         return self.__next
 
-    def set_next(self, next_node):
+    @next.setter
+    def next(self, next_node):
         self.__next = next_node
 
-    def get_prev(self):
+    @property
+    def prev(self):
         return self.__prev
 
+    @prev.setter
     def set_prev(self, prev_node):
         self.__prev = prev_node
 
